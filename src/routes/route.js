@@ -1,26 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
+// Importez les controllers associés
+const sampleController = require('../controllers/sampleControllers');
 
-router.get("/Bienvenue", (req, res) => {
-  res.send(`<h1>Bienvenue sur express-2000</h1> <li> <a href="/redirection-accueil">redirection-accueil</a></li> `);
-});
 
-router.get("/infos", (req, res) => {
-  res.json({nom: 'Aragorn', Age: 87,});
-});
-
-router.get("/acces-interdit", (req, res) => {
-    res.status(403).send(`<h2>Oups, Acces refusé</h2> 
-        <li> <a href="/redirection-accueil">redirection-accueil</a></li>`);
-});
-
-router.get("/redirection-accueil", (req, res) => {
-    res.redirect("/");
-});
-
-router.get("*", (req, res) => {
-  res.status(404).send("Oups, Erreur 404 - Page non trouvée");
-});
+// Définissez les routes associées aux fonctions du controller
+router.get('/', sampleController.Accueil);
+router.get('/Bienvenue', sampleController.Bienvenue);
+router.get('/infos', sampleController.infosPage);
+router.get('/acces-interdit', sampleController.interditPage);
+router.get('/redirection-accueil', sampleController.redirectionPage);
+router.get('*', sampleController.status);
 
 module.exports = router;
